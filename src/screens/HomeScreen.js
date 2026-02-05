@@ -230,39 +230,38 @@ export default function HomeScreen({ navigation }) {
     }
   };
 
-  const handleRestore = () => {
-    Alert.alert(
-      "Restore Data",
-      "PERINGATAN: Semua data saat ini akan DITIMPA dengan data dari file backup. Lanjutkan?",
-      [
-        { text: "Batal", style: "cancel" },
-        {
-          text: "Lanjut (Timpa Data)", 
-          style: "destructive",
-          onPress: async () => {
-            try {
-              const res = await DocumentPicker.getDocumentAsync({ type: 'application/json', copyToCacheDirectory: true });
-              if (!res.canceled && res.assets && res.assets.length > 0) {
-                const fileUri = res.assets[0].uri;
-                const fileContent = await FileSystem.readAsStringAsync(fileUri);
-                const success = await importJsonToDatabase(fileContent);
-                if (success) {
-                  Alert.alert("Sukses", "Data berhasil dipulihkan!");
-                  setSettingsVisible(false);
-                  loadData();
+        const handleRestore = () => {
+          Alert.alert(
+            "Restore Data",
+            "PERINGATAN: Semua data saat ini akan DITIMPA dengan data dari file backup. Lanjutkan?",
+            [
+              { text: "Batal", style: "cancel" },
+              {
+                text: "Lanjut (Timpa Data)", 
+                style: "destructive",
+                onPress: async () => {
+                  try {
+                    const res = await DocumentPicker.getDocumentAsync({ type: 'application/json', copyToCacheDirectory: true });
+                    if (!res.canceled && res.assets && res.assets.length > 0) {
+                      const fileUri = res.assets[0].uri;
+                      const fileContent = await FileSystem.readAsStringAsync(fileUri);
+                      const success = await importJsonToDatabase(fileContent);
+                      if (success) {
+                        Alert.alert("Sukses", "Data berhasil dipulihkan!");
+                        setSettingsVisible(false);
+                        loadData();
+                      }
+                    }
+                  } catch (error) {
+                    Alert.Alert("Gagal Restore", error.message);
+                  }
                 }
               }
-            } catch (error) {
-              Alert.Alert("Gagal Restore", error.message);
-            }
-          }
-        }
-      ]
-    );
-  };
-
-      const handleResetToDefault = () => {
-        Alert.alert(
+            ]
+          );
+        };
+  
+        const handleResetToDefault = () => {        Alert.alert(
           "Reset Database (Kosongkan)?",
           "PERINGATAN KERAS:\n\nIni akan MENGHAPUS SELURUH DATA termasuk:\n- Semua Exercise & Plan\n- Semua Riwayat Latihan (History)\n- Semua Statistik Tubuh\n\nAplikasi akan menjadi KOSONG (0 data).",
           [

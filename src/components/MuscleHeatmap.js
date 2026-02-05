@@ -28,7 +28,7 @@ const MuscleHeatmap = ({ trainedMuscles = [] }) => {
     // Back (Lats, Traps, Lower Back)
     if (muscleName === 'Back' && (activeMuscles.includes('BACK') || activeMuscles.includes('LATS') || activeMuscles.includes('TRAPS') || activeMuscles.includes('LOWER BACK'))) isTrained = true;
 
-    return isTrained ? '#007AFF' : '#E0E0E0';
+    return isTrained ? '#007AFF' : '#666';
   };
 
   const labelColor = isDark ? '#b0b0b0' : '#666';
@@ -44,7 +44,7 @@ const MuscleHeatmap = ({ trainedMuscles = [] }) => {
         <Svg width="112" height="237" viewBox="0 0 112 237" fill="none">
           
           {/* BASE BODY (Outline/Kulit) - Leher & Lutut */}
-          <G fill="#D9D9D9"> 
+          <G fill="#666"> 
              <Path d="M63.5 0C57.7772 4.68451 54.399 4.90699 48 0C48.8701 9.73329 49.6035 13.7588 51.5 17.5C53.6589 19.7109 54.6406 21.0272 56 23.5C57.3934 21.2373 58.2611 19.9268 60 17.5C62.0796 12.9541 62.7474 8.80608 63.5 0Z" />
           </G>
 
